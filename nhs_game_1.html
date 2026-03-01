@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Day in the Life of a Biomedical Scientist</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        height: 100%;
+        width: 100%;
+    }
+    .screen {
+        display: none;
+        height: 100vh;
+        width: 100vw;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+    .screen.active {
+        display: block;
+    }
+    .overlay {
+        position: absolute;
+        top:0; left:0; right:0; bottom:0;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 30px;
+        font-size: 18px;
+        line-height: 1.5;
+    }
+    h1 { font-size: 32px; margin: 10px 0; }
+    h2 { font-size: 28px; margin: 8px 0; }
+    p { font-size: 20px; }
+    button {
+        font-size: 18px;
+        padding: 12px 24px;
+        margin: 12px;
+        cursor: pointer;
+        border-radius: 8px;
+        border: none;
+        background-color: #005eb8;
+        color: white;
+        transition: background-color 0.2s;
+    }
+    button:hover { background-color: #0074d9; }
+
+    /* Extra styling for 6th screen content */
+    .sixth-content {
+        background-color: rgba(232, 241, 250, 0.9);
+        color: #003A8F;
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 800px;
+        text-align: left;
+    }
+    .sixth-content h1 { color:#005EB8; text-align:center; }
+    .sixth-content h2 { color:#005EB8; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<!-- ================= Welcome Screen ================= -->
+<div id="welcome" class="screen active" style="background-image: url('welcom_bg.jpg');">
+    <div class="overlay">
+        <h1>A Day in the Life of a Biomedical Scientist</h1>
+        <button id="startShift">Start Your NHS Shift</button>
+    </div>
+</div>
+
+<!-- ================= Shift Screen (Clock) ================= -->
+<div id="shift" class="screen" style="background-image: url('NHS Shift.jpg');">
+    <div class="overlay">
+        <h1>Clock</h1>
+        <h2 id="clock">17:59:57</h2>
+    </div>
+</div>
+
+<!-- ================= Lab Task Screen ================= -->
+<div id="lab" class="screen" style="background-image: url('Lab_Scene.jpg');">
+    <div class="overlay">
+        <h2>NHS Laboratory – Night Shift Begins</h2>
+        <p>A critically ill patient needs a blood transfusion.<br>Analyse the blood sample to find the correct blood type.</p>
+        <button id="analyseBlood">Analyse Blood Sample</button>
+    </div>
+</div>
+
+<!-- ================= Analysis Screen ================= -->
+<div id="analysis" class="screen" style="background-image: url('Tranfusion_Scene.jpg');">
+    <div class="overlay">
+        <h2>Blood Analysis System</h2>
+        <p id="status">Insert sample to begin analysis...</p>
+        <div id="bloodButtons"></div>
+    </div>
+</div>
+
+<!-- ================= Success Screen (5th) ================= -->
+<div id="success" class="screen" style="background-image: url('Blood_Transfusion.jpg');">
+    <div class="overlay">
+        <h1>🎉 Patient Ready for Transfusion! 🎉</h1>
+        <p>Amazing job!<br>
+           You’ve successfully saved this patient’s life.<br>
+           Your quick thinking and accurate analysis made all the difference.<br>
+           The patient is safe thanks to you!</p>
+        <button id="nextScreen">Next</button>
+    </div>
+</div>
+<!-- ================= Sixth Screen (Career Reveal) ================= -->
+<div id="sixth" class="screen" style="background-image: url('NHS Staff.jpg');">
+    <div class="overlay" style="flex-direction: column; justify-content: flex-start; padding: 50px; overflow-y: auto;">
+        <h1 style="font-size: 36px; margin-bottom: 30px; color:#FFD700; text-shadow: 1px 1px 3px #000;">Experience the Role of a Biomedical Scientist</h1>
+        
+        <div style="background-color: rgba(0,94,184,0.6); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <p style="font-size:20px; line-height:1.6;">
+                Biomedical Scientists work behind the scenes in NHS laboratories. They analyse patient samples, identify diseases, and provide vital information that helps doctors save lives every day.
+            </p>
+        </div>
+        
+        <div style="background-color: rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h2 style="color:#FFD700;">Main Responsibilities:</h2>
+            <ul style="font-size:18px; line-height:1.6;">
+                <li>Testing blood and other samples</li>
+                <li>Preparing blood for transfusions</li>
+                <li>Using advanced laboratory technology</li>
+                <li>Communicating results to healthcare teams</li>
+            </ul>
+        </div>
+        
+        <div style="background-color: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h2 style="color:#FFD700;">Key Skills Needed:</h2>
+            <ul style="font-size:18px; line-height:1.6;">
+                <li>Attention to detail</li>
+                <li>Problem-solving</li>
+                <li>Communication</li>
+                <li>Teamwork</li>
+                <li>Interest in science</li>
+            </ul>
+        </div>
+
+        <div style="background-color: rgba(0,94,184,0.6); padding: 20px; border-radius: 12px; text-align:center; font-size:18px;">
+            <h2 style="color:#FFD700;">Qualifications Pathway</h2>
+            GCSEs (Maths, English & Science)<br>
+            ↓<br>
+            A Levels (Biology & Chemistry)<br>
+            ↓<br>
+            Biomedical Science Degree or Apprenticeship
+        </div>
+
+        <!-- Finish Button -->
+        <div style="width: 100%; display:flex; justify-content:flex-end; margin-top: 20px;">
+            <button id="finishSixth" style="font-size:18px; padding:12px 24px; border-radius:8px; background-color:#005eb8;">Finish</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= Seventh Screen (Reflection / Restart) ================= -->
+<div id="seventh" class="screen" style="background-image: url('NHS day.jpg');">
+    <div class="overlay" style="flex-direction: column; justify-content: center; padding:50px; overflow-y:auto;">
+        <h1 style="font-size:36px; margin-bottom:30px; color:#FFD700; text-shadow:1px 1px 3px #000;">Hope You Enjoyed Your Experience!</h1>
+        <div style="background-color: rgba(0,94,184,0.6); padding: 20px; border-radius: 12px; margin-bottom:20px; font-size:20px; line-height:1.6;">
+            <p>
+                You’ve just explored the exciting role of a Biomedical Scientist in the NHS.<br><br>
+                Are you thinking about taking this up as a career? Remember, attention to detail, teamwork, and a love for science will guide you!
+            </p>
+        </div>
+        <!-- Restart Button -->
+        <div style="width: 100%; display:flex; justify-content:flex-end; margin-top: 20px;">
+            <button id="restartApp" style="font-size:18px; padding:12px 24px; border-radius:8px; background-color:#005eb8;">Restart</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// =================== Sixth to Seventh ===================
+document.getElementById("finishSixth").addEventListener("click", () => {
+    showScreen("seventh");
+});
+
+// =================== Restart App ===================
+document.getElementById("restartApp").addEventListener("click", () => {
+    // Reset clock
+    currentTime = {h:17, m:59, s:57};
+    document.getElementById("clock").innerText = "17:59:57";
+    
+    // Clear any running intervals
+    clearInterval(clockInterval);
+    
+    // Clear blood analysis
+    document.getElementById("status").innerText = "Insert sample to begin analysis...";
+    document.getElementById("bloodButtons").innerHTML = "";
+
+    // Go back to welcome screen
+    showScreen("welcome");
+});
+</script>
+
+<script>
+// =================== Helper ===================
+function showScreen(screenId) {
+    const screens = ["welcome", "shift", "lab", "analysis", "success", "sixth", "seventh"];
+    screens.forEach(id => document.getElementById(id).classList.remove("active"));
+    document.getElementById(screenId).classList.add("active");
+    
+    // Reset scroll position to top when switching screens
+    window.scrollTo(0, 0);
+}
+
+// =================== Clock ===================
+let currentTime = {h: 17, m: 59, s: 57};
+let clockInterval;
+
+function updateClock() {
+    currentTime.s++;
+    if(currentTime.s >= 60) { 
+        currentTime.s = 0; 
+        currentTime.m++; 
+    }
+    if(currentTime.m >= 60) { 
+        currentTime.m = 0; 
+        currentTime.h++; 
+    }
+
+    const clockText = `${String(currentTime.h).padStart(2,'0')}:${String(currentTime.m).padStart(2,'0')}:${String(currentTime.s).padStart(2,'0')}`;
+    document.getElementById("clock").innerText = clockText;
+
+    // Switch screen only after showing 18:00:00
+    if(currentTime.h === 18 && currentTime.m === 0 && currentTime.s === 0) {
+        clearInterval(clockInterval);
+        // Wait 1 second so user sees 18:00:00
+        setTimeout(() => showScreen("lab"), 1000);
+    }
+}
+
+// =================== Analysis ===================
+const scanSteps = [
+    "Scanning sample...",
+    "Analysing blood cells...",
+    "Checking antibodies...",
+    "Matching donor compatibility...",
+    "Analysis complete."
+];
+
+function runScan() {
+    const statusEl = document.getElementById("status");
+    let step = 0;
+
+    function nextStep() {
+        if(step < scanSteps.length) {
+            statusEl.innerText = scanSteps[step];
+            step++;
+            setTimeout(nextStep, 1200);
+        } else {
+            statusEl.innerText = "Select the correct blood type for transfusion:";
+            showBloodOptions();
+        }
+    }
+    nextStep();
+}
+
+function showBloodOptions() {
+    const container = document.getElementById("bloodButtons");
+    container.innerHTML = "";
+    const bloodTypes = ["A", "B", "AB", "O"];
+    bloodTypes.forEach(bt => {
+        const btn = document.createElement("button");
+        btn.innerText = bt;
+        btn.addEventListener("click", () => checkAnswer(bt));
+        container.appendChild(btn);
+    });
+}
+
+function checkAnswer(choice) {
+    const statusEl = document.getElementById("status");
+    if(choice === "O") {
+        statusEl.innerText = "Correct! O blood type selected.\nPatient ready for transfusion.";
+        setTimeout(() => showScreen("success"), 2000);
+    } else {
+        statusEl.innerText = "Incorrect match. Recheck compatibility.";
+    }
+}
+
+// =================== Button Events ===================
+document.getElementById("startShift").addEventListener("click", () => {
+    showScreen("shift");
+    clockInterval = setInterval(updateClock, 1000);
+});
+
+document.getElementById("analyseBlood").addEventListener("click", () => {
+    showScreen("analysis");
+    runScan();
+});
+
+document.getElementById("nextScreen").addEventListener("click", () => {
+    showScreen("sixth");
+});
+</script>
+
+</body>
+</html>
